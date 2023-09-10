@@ -27,7 +27,7 @@
   --incoming-chat-border: #d9d9e3;
 }
 body {
-  background: #D9F8F0;
+  background: #d9f8f0;
 }
 /* Chats container styling */
 .chat-container {
@@ -70,12 +70,10 @@ body {
   color: var(--text-color);
 }
 .chat-container .chat.outgoing {
-  background: var(--outgoing-chat-bg);
-  border: 1px solid var(--outgoing-chat-border);
+  background: #ebebeb;
 }
 .chat-container .chat.incoming {
-  background: var(--incoming-chat-bg);
-  border: 1px solid var(--incoming-chat-border);
+  background: #444654;
 }
 .chat .chat-content {
   display: flex;
@@ -112,8 +110,17 @@ span.material-symbols-rounded {
   white-space: pre-wrap;
   font-size: 1.05rem;
   padding: 0 50px 0 25px;
-  color: var(--text-color);
+  color: #1b1b1b;
   word-break: break-word;
+  text-align: left;
+}
+.chat.incoming .chat-details p {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  padding: 0 50px 0 25px;
+  color: #f0f0f0;
+  word-break: break-word;
+  text-align: left;
 }
 .chat .chat-details p.error {
   color: #e55865;
@@ -254,4 +261,21 @@ span.material-symbols-rounded {
   span.material-symbols-rounded {
     font-size: 1.25rem !important;
   }
+}
+.send-btn {
+  background-color: #444654;
+  width: 130px;
+  border-radius: 5px;
+  border: 1px solid #444654;
+  padding: 4px 0;
+  color: #fff;
+}
+.delete-btn {
+  background-color: #444654;
+  width: 130px;
+  border-radius: 5px;
+  border: 1px solid #444654;
+  padding: 16px 0;
+  margin-left: 10px;
+  color: #fff;
 }

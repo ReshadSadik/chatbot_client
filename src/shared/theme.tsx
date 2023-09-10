@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 export const defaultTheme = createTheme({
   breakpoints: {
@@ -12,16 +12,16 @@ export const defaultTheme = createTheme({
   },
   palette: {
     primary: {
-      main: "#475BE8",
-      dark: "#008AC0",
+      main: 'rgb(99, 102, 241)',
+      dark: '#008AC0',
     },
     grey: {
-      A100: "#fcfcfc",
-      A200: "#e5e5e5",
+      A100: '#fcfcfc',
+      A200: '#fff',
     },
     text: {
-      primary: "#11142D",
-      secondary: "#808191",
+      primary: '#11142D',
+      secondary: '#808191',
     },
   },
 });

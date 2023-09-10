@@ -11,7 +11,7 @@ const Chat = () => {
   const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
-    if(botId) {
+    if (botId) {
       fetchBotChatHistory();
     }
   }, [botId]);
@@ -24,12 +24,12 @@ const Chat = () => {
       if (response.data) {
         setMessageList(response.data);
       }
-  } catch (error) {
+    } catch (error) {
       console.log(error);
-  } finally {
-    setIsFetchingChat(false);
-  }
-  }
+    } finally {
+      setIsFetchingChat(false);
+    }
+  };
 
   const question = useRef();
   const handleAskQuestion = async (e) => {
@@ -37,25 +37,30 @@ const Chat = () => {
 
     const newMessage = {
       question: question.current.value, // Set your desired message
-      matchId: uuidv4(), 
+      matchId: uuidv4(),
     };
 
     setMessageList((prevList) => [...prevList, newMessage]);
     try {
       const response = await axiosSecure.post('/chats', {
         question: question.current.value,
-        botId
+        botId,
       });
       if (response.status === 200) {
         console.log(response);
 
-        setMessageList((prevMessageList) => prevMessageList.map(message => {
-          if(message.matchId === newMessage.matchId) {
-            return {...message, botResponse: response.data.chat.botResponse, }
-          } else {
-            return message
-          }
-        }))
+        setMessageList((prevMessageList) =>
+          prevMessageList.map((message) => {
+            if (message.matchId === newMessage.matchId) {
+              return {
+                ...message,
+                botResponse: response.data.chat.botResponse,
+              };
+            } else {
+              return message;
+            }
+          })
+        );
       }
     } catch (error) {}
   };
@@ -66,14 +71,29 @@ const Chat = () => {
       <div className="chat-container">
         {messageList.map((chat) => (
           <div key={chat._id || chat.matchId}>
+            <div className="chat incoming">
+              <div class="chat-content">
+                <div class="chat-details">
+                  <img
+                    src="https://i.ibb.co/C1LKVt9/user-icon-image-placeholder.jpg"
+                    alt=""
+                  />
+                  <p>{chat.question}</p>
+                </div>
+                <span
+                  onclick="copyResponse(this)"
+                  class="material-symbols-rounded"
+                >
+                  copy
+                </span>
+              </div>
+            </div>
+            {!chat?.botResponse ? (
               <div className="chat incoming">
                 <div class="chat-content">
                   <div class="chat-details">
-                    <img
-                      src="https://i.ibb.co/C1LKVt9/user-icon-image-placeholder.jpg"
-                      alt=""
-                    />
-                    <p>{chat.question}</p>
+                    <img src="https://i.ibb.co/2FBr80k/icon.png" alt="" />
+                    <p>chat is coming........</p>
                   </div>
                   <span
                     onclick="copyResponse(this)"
@@ -83,24 +103,11 @@ const Chat = () => {
                   </span>
                 </div>
               </div>
-              {
-                !chat?.botResponse ? <div className="chat incoming">
-            <div class="chat-content">
-              <div class="chat-details">
-                <img src="https://i.ibb.co/2FBr80k/icon.png" alt="" />
-                <p>chat is coming........</p>
-              </div>
-              <span
-                onclick="copyResponse(this)"
-                class="material-symbols-rounded"
-              >
-                copy
-              </span>
-            </div>
-          </div> : <div className="chat outgoing">
+            ) : (
+              <div className="chat outgoing">
                 <div class="chat-content">
                   <div class="chat-details">
-                  <img src="https://i.ibb.co/2FBr80k/icon.png" alt="" />
+                    <img src="https://i.ibb.co/2FBr80k/icon.png" alt="" />
                     <p> {chat.botResponse}</p>
                   </div>
                   <span
@@ -111,17 +118,19 @@ const Chat = () => {
                   </span>
                 </div>
               </div>
-              }
+            )}
           </div>
         ))}
-
       </div>
 
       {/* <!-- Typing container --> */}
       <div className="typing-container">
         <div className="typing-content">
           <div className="typing-textarea">
-            <form onSubmit={handleAskQuestion}>
+            <form
+              style={{ display: 'flex', gap: '10px', width: '100%' }}
+              onSubmit={handleAskQuestion}
+            >
               <textarea
                 id="question"
                 spellCheck="false"
@@ -131,17 +140,19 @@ const Chat = () => {
               ></textarea>
               <button
                 type="submit"
-                id="send-btn"
-                className="material-symbols-rounded"
+                className="material-symbols-rounded send-btn"
               >
                 send
               </button>
             </form>
           </div>
           <div className="typing-controls">
-            <span id="delete-btn" className="material-symbols-rounded">
+            <button
+              id="delete-btn"
+              className="material-symbols-rounded delete-btn"
+            >
               delete
-            </span>
+            </button>
           </div>
         </div>
       </div>

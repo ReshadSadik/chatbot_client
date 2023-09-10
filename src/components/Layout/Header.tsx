@@ -91,14 +91,14 @@ const Header = ({ open, toggleDrawerLarge, sidebarList }: any) => {
 
         <Typography
           component="h1"
-          variant="h6"
+          variant="h5"
           color="inherit"
           noWrap
           sx={{ flexGrow: 1 }}
         >
           QuantoBUG
         </Typography>
-       
+
         <IconButton color="inherit">
           <Badge badgeContent={2} color="secondary">
             <AccountCircleIcon />

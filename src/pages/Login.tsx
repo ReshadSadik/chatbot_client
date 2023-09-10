@@ -22,22 +22,29 @@ const Login = () => {
     const payload = {
       email: data.get('email'),
       password: data.get('password'),
-    }
+    };
     console.log(payload);
 
-   try {
-    const response = await axiosOpen.post('/users/login', payload);
-    console.log(response.data);
-    if(response.data) {
-      localStorage.setItem('authToken', JSON.stringify(response.data.token));
-      localStorage.setItem('userId', JSON.stringify(response.data.userId));
-      localStorage.setItem('email', JSON.stringify(response.data.email));
-      localStorage.setItem('userName', JSON.stringify(response.data.userName));
-      navigate('/', {replace: true});
+    try {
+      const response = await axiosOpen.post('/users/login', payload);
+      console.log(response.data.userAuth.roles[0]);
+      if (response.data) {
+        localStorage.setItem('authToken', JSON.stringify(response.data.token));
+        localStorage.setItem('userId', JSON.stringify(response.data.userId));
+        localStorage.setItem('email', JSON.stringify(response.data.email));
+        localStorage.setItem(
+          'userName',
+          JSON.stringify(response.data.userName)
+        );
+        localStorage.setItem(
+          'role',
+          JSON.stringify(response.data.userAuth.roles[0])
+        );
+        navigate('/', { replace: true });
+      }
+    } catch (error) {
+      console.log(error);
     }
-   } catch (error) {
-    console.log(error);
-   }
   };
   interface loginType {
     email: string;
@@ -54,8 +61,13 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
+        <Avatar sx={{ m: 1 }}>
+          <img
+            src="/bot-1.png"
+            style={{ objectFit: 'contain' }}
+            width={30}
+            alt=""
+          />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -81,10 +93,7 @@ const Login = () => {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
@@ -94,13 +103,8 @@ const Login = () => {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <RouterLink to='/register' >
+              <RouterLink to="/register">
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>

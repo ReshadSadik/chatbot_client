@@ -20,8 +20,6 @@ import { ALL_ROUTES } from '../../shared/routes';
 const sidebarList = [
   { title: 'Dashboard', link: '', icon: QrCodeIcon },
   { title: 'Upload Doc', link: ALL_ROUTES.UPLOAD_DOC, icon: VillaOutlined },
-  { title: 'All Bots', link: ALL_ROUTES.DOC_LIST, icon: PeopleAltOutlined },
-  // { title: 'Chat', link: ALL_ROUTES.CHAT, icon: StarOutlineRounded },
   { title: 'SignOut', link: 'login', icon: AccountCircleIcon },
 ];
 
@@ -67,7 +65,7 @@ export function DashboardContainer() {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth={false} sx={{ mt: 4, mb: 4 }}>
           <Outlet></Outlet>
         </Container>
       </Box>

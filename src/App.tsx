@@ -28,13 +28,12 @@ function App() {
                 path={ALL_ROUTES.UPLOAD_DOC}
                 element={<UploadDoc />}
               ></Route>
-              <Route path={ALL_ROUTES.DOC_LIST} element={<DocList />}></Route>
               <Route path={ALL_ROUTES.CHAT} element={<Chat />}></Route>
               <Route
                 path={ALL_ROUTES.MY_PROFILE}
                 element={<MyProfile />}
               ></Route>
-              <Route index element={<Dashboard />}></Route>
+              <Route index element={<DocList />}></Route>
             </Route>
           </Route>
           <Route />
