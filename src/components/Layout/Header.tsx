@@ -96,7 +96,7 @@ const Header = ({ open, toggleDrawerLarge, sidebarList }: any) => {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          QuantoBUG
+          DoctorAI Chatbot
         </Typography>
 
         <IconButton color="inherit">
